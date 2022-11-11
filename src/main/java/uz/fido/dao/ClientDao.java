@@ -31,7 +31,8 @@ public class ClientDao {
 
         try {
             if (id != null) {
-                query = "UPDATE client SET first_name=?,last_name=?, email=?,bank=?,balance=?, password=? WHERE id =?";
+                query = "UPDATE users SET first_name=?,last_name=?, email=?,bank=?,balance=? WHERE id =" + Integer.parseInt(id);
+
             } else {
                 query = "insert into users(first_name,last_name, email,bank,balance, password) values(?,?,?,?,?,?);";
             }
@@ -41,7 +42,8 @@ public class ClientDao {
             preparedStatement.setString(3, email);
             preparedStatement.setString(4, bank);
             preparedStatement.setDouble(5, Double.parseDouble(balance));
-            preparedStatement.setString(6, password);
+            if (id == null)
+                preparedStatement.setString(6, password);
             preparedStatement.executeUpdate();
             result = true;
         } catch (Exception e) {

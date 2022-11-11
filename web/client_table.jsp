@@ -18,7 +18,7 @@
     <title>Bank</title>
     <%@include file="includes/head.jsp" %>
 </head>
-<body >
+<body>
 <%@include file="includes/navbar.jsp" %>
 
 <div class="container">
@@ -44,18 +44,30 @@
             if (users != null) {
                 for (User user : users) {%>
         <tr>
-            <td ><%= user.getId()%></td>
-            <td id="first_name_<%=user.getId()%>"><%= user.getFirstName()%></td>
-            <td id="last_name_<%=user.getId()%>"><%= user.getLastName()%></td>
-            <td id="balance_<%=user.getId()%>"><%= user.getBalance()%></td>
-            <td id="email_<%=user.getId()%>"><%= user.getEmail()%></td>
-            <td id="bank_<%=user.getId()%>"><%= user.getBank()%></td>
+            <td><%= user.getId()%>
+            </td>
+            <td id="first_name_<%=user.getId()%>"><%= user.getFirstName()%>
+            </td>
+            <td id="last_name_<%=user.getId()%>"><%= user.getLastName()%>
+            </td>
+            <td id="balance_<%=user.getId()%>"><%= user.getBalance()%>
+            </td>
+            <td id="email_<%=user.getId()%>"><%= user.getEmail()%>
+            </td>
+            <td id="bank_<%=user.getId()%>"><%= user.getBank()%>
+            </td>
             <td>
-<%--                <a href='#' style='margin:0 10px'><button onclick='deposit(<%= user.getId()%>)' type='button' class='btn btn-outline-info waves-effect'>Deposit</button></a>--%>
-                <a href='#' style='margin:0 10px'><button onclick='withdraw(<%= user.getId()%>,<%= user.getBalance()%>)' type='button' class='btn btn-outline-success  waves-effect'>Transaction</button></a></td>
+                <%--                <a href='#' style='margin:0 10px'><button onclick='deposit(<%= user.getId()%>)' type='button' class='btn btn-outline-info waves-effect'>Deposit</button></a>--%>
+                <a href='#' style='margin:0 10px'>
+                    <button onclick='withdraw(<%= user.getId()%>,<%= user.getBalance()%>)' type='button'
+                            class='btn btn-outline-success  waves-effect'>Transaction
+                    </button>
+                </a></td>
             <td>
-                <a class="btn btn-sm btn-warning" href="#" type='button' onclick='editClient(<%= user.getId()%>)'> <i class="fa-solid fa-pen-to-square"></i> </a>
-                <a class="btn btn-sm btn-danger" href="#"  type='button' onclick='deleteClient(<%= user.getId()%>)'><i class="fa fa-trash" aria-hidden="true"></i></a>
+                <a class="btn btn-sm btn-warning" href="#" type='button' onclick='editClient(<%= user.getId()%>)'> <i
+                        class="fa-solid fa-pen-to-square"></i> </a>
+                <a class="btn btn-sm btn-danger" href="#" type='button' onclick='deleteClient(<%= user.getId()%>)'><i
+                        class="fa fa-trash" aria-hidden="true"></i></a>
             </td>
         </tr>
         <%
@@ -65,7 +77,8 @@
         </tbody>
     </table>
 </div>
-<div id="deleteModal" class="modal" style="width: 500px; height: 600px; margin-top: 200px;margin-left: 430px; text-align: center">
+<div id="deleteModal" class="modal"
+     style="width: 500px; height: 600px; margin-top: 200px;margin-left: 430px; text-align: center">
     <span onclick="document.getElementById('deleteModal').style.display='none'" class="close" title="Close Modal">&times;</span>
     <form class="modal-content" action="/table" method="post">
         <div class="container">
@@ -89,7 +102,7 @@
     <div class="container jumbotron">
         <span onclick="document.getElementById('editModal').style.display='none'" class="close" title="Close Modal">&times;</span>
         <h1 style="color: black">Transaction</h1>
-        <form action="/add" method="post">
+        <form action="/client" method="post">
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">ID</label>
                 <div class="col-sm-7">
@@ -113,12 +126,11 @@
                            placeholder="Enter last name">
                 </div>
             </div>
-
-            <div class=" form-group row">
-                <label class="col-sm-2 col-form-label">Balance</label>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" id="balance" name="balance"
-                           placeholder="Enter balance">
+                    <input type="text" class="form-control" id="email" name="email"
+                           placeholder="Enter last name">
                 </div>
             </div>
 
@@ -129,17 +141,26 @@
                         BankDao bankService = new BankDao(DbConnection.getConnection());
                         List<Bank> banks = bankService.getAllBank();
                     %>
-                    <select style="width: 100%" name="bank" id="bank">
+                    <select style="width: 100%" name="bank" id="bank" >
                         <%
                             for (int i = 0; i < banks.size(); i++) {
                                 out.print(
-                                        "<option>" + banks.get(i).getName() + "</option>"
+                                        "<option value='"+ banks.get(i).getName() +"'>" + banks.get(i).getName() + "</option>"
                                 );
                             }
                         %>
                     </select>
                 </div>
             </div>
+
+            <div class=" form-group row">
+                <label class="col-sm-2 col-form-label">Balance</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" id="balance" name="balance"
+                           placeholder="Enter balance">
+                </div>
+            </div>
+
 
             <button type="submit" id="edit" class="btn btn-primary" style="float: right">Edit Client</button>
         </form>
@@ -246,15 +267,30 @@
         document.getElementById('editModal').style.display = 'block';
         var firstName = document.getElementById('first_name_' + id).textContent;
         var lastName = document.getElementById('last_name_' + id).textContent;
-        var balance = document.getElementById('balance_' + id).textContent;
+        var email = document.getElementById('email_' + id).textContent;
         var bank = document.getElementById('bank_'+id).textContent;
+        // var bank2 = document.getElementById('bank').value;
+        console.log("BANKNAME: "+bank);
+        // console.log("BANKNAME2: "+bank2);
+        var balance = document.getElementById('balance_' + id).textContent;
         document.getElementById('id').value = id;
         document.getElementById('firstName').value = firstName;
         document.getElementById('lastName').value = lastName;
-        document.getElementById('balance').value = balance;
+        document.getElementById('email').value = email;
+        // $("#iddropdown").dropdown('set selected', ['fruits']);
         document.getElementById('bank').value = bank;
-        console.log(name);
-        console.log(id);
+        document.getElementById('balance').value = balance;
+
+        let banks = document.getElementsByTagName('option');
+        for (let i = 0; i < banks.length; i++) {
+            if (bank.trim() == banks[i].innerText.trim()) {
+                banks[i].setAttribute('selected', 'selected');
+            }
+        }
+    }
+
+    function getName(id){
+
     }
 
     function deleteClient(id) {
@@ -273,7 +309,7 @@
     }
 
     //TODO Add user find
-    function withdraw(id,balance) {
+    function withdraw(id, balance) {
         document.getElementById('withdrawModal').style.display = 'block';
         document.getElementById('fromTrx').value = id;
         document.getElementById('withdraw').value = balance;

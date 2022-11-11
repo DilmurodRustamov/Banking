@@ -35,7 +35,7 @@
     }
 </style>
 <div class="container">
-    <h1 style="color: black">Add New Bank:</h1>
+    <div class="card-header my-3">Add new bank</div>
     <form action="/client" method="post">
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">First
@@ -73,7 +73,7 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Password</label>
             <div class="col-sm-7">
-                <input type="password" class="form-control" name="password"
+                <input type="text" class="form-control" name="password"
                        placeholder="Enter Password" required>
             </div>
         </div>
