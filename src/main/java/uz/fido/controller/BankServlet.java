@@ -18,7 +18,12 @@ import java.util.ArrayList;
 public class BankServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
+        String bankId = request.getParameter("bankId");
+        if (bankId != null) {
+            BankDao bankDao = new BankDao(DbConnection.getConnection());
+            bankDao.deleteBank(bankId);
+        }
         resp.sendRedirect("bank.jsp");
     }
 
@@ -26,11 +31,12 @@ public class BankServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF=8");
         try (PrintWriter out = response.getWriter()) {
+            String id = request.getParameter("id");
             String name = request.getParameter("name");
             String address = request.getParameter("address");
             String iban = request.getParameter("iban");
             BankDao bankDao = new BankDao(DbConnection.getConnection());
-            boolean saved = bankDao.insertBank(name, address, iban);
+            boolean saved = bankDao.insertBank(id, name, address, iban);
             if (saved) {
                 response.sendRedirect("bank.jsp");
             } else {

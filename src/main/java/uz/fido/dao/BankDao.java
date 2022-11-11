@@ -25,11 +25,15 @@ public class BankDao {
         this.con = connection;
     }
 
-    public boolean insertBank(String name, String address, String iban) {
+    public boolean insertBank(String id, String name, String address, String iban) {
         boolean result = false;
 
         try {
-            query = "insert into bank(name,address,iban) values(?,?,?)";
+            if (id != null) {
+                query = "UPDATE bank SET name=?,address=?,iban=? where id=" + Integer.parseInt(id);
+            } else {
+                query = "insert into bank(name,address,iban) values(?,?,?)";
+            }
             preparedStatement = this.con.prepareStatement(query);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, address);
