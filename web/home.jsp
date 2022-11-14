@@ -8,7 +8,7 @@
 <%--//    List<Product> products = null;--%>
 <%--    if (auth != null) {--%>
 <%--        request.setAttribute("auth", auth);--%>
-<%--//        response.sendRedirect("index.jsp");--%>
+<%--//        response.sendRedirect("home.jsp");--%>
 <%--    }--%>
 <%--    ProductDao productDao = new ProductDao(DbConnection.getConnection());--%>
 <%--    List<Product> products = productDao.getAllProduct();--%>

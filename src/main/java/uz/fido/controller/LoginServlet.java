@@ -12,12 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/login")
+@WebServlet("/")
 public class LoginServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("login.jsp");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User auth = (User) request.getSession().getAttribute("auth");
+        if (auth != null) {
+            response.sendRedirect("home.jsp");
+        } else {
+            response.sendRedirect("login.jsp");
+        }
     }
 
     @Override
@@ -29,9 +34,10 @@ public class LoginServlet extends HttpServlet {
             UserDao userDao = new UserDao(DbConnection.getConnection());
             User user = userDao.userLogin(email, password);
             if (user != null) {
-                request.getSession().setAttribute("auth",user);
-                response.sendRedirect("index.jsp");
+                request.getSession().setAttribute("auth", user);
+                response.sendRedirect("home.jsp");
             } else {
+                request.getSession().setAttribute("errorMessage", "Invalid username or password");
                 response.sendRedirect("login.jsp");
             }
         }

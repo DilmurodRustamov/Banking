@@ -2,6 +2,7 @@ package uz.fido.controller;
 
 
 import uz.fido.dao.DeleteClientDao;
+import uz.fido.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,8 +15,13 @@ import java.io.IOException;
 public class DeleteController extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("client_table.jsp");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User auth = (User) request.getSession().getAttribute("auth");
+        if (auth != null) {
+            response.sendRedirect("client_table.jsp");
+        } else {
+            response.sendRedirect("login.jsp");
+        }
     }
 
     @Override

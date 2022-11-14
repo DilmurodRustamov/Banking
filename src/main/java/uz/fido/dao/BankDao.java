@@ -79,42 +79,4 @@ public class BankDao {
         return result;
     }
 
-//    public List<Order> userOrders(int id) {
-//        List<Order> orders = new ArrayList<>();
-//        try {
-//            query = "select * from orders where u_id=? order by orders.o_id desc";
-//            preparedStatement = this.con.prepareStatement(query);
-//            preparedStatement.setInt(1, id);
-//            resultSet = preparedStatement.executeQuery();
-//
-//            while (resultSet.next()) {
-//                Order order = new Order();
-//                ProductDao productDao = new ProductDao(this.con);
-//                int productId = resultSet.getInt("p_id");
-//                Product product = productDao.getSingLeProduct(productId);
-//                order.setOrderId(resultSet.getInt("o_id"));
-//                order.setId(productId);
-//                order.setName(product.getName());
-//                order.setCategory(product.getCategory());
-//                order.setPrice(product.getPrice() * resultSet.getInt("o_quantity"));
-//                order.setQuantity(resultSet.getInt("o_quantity"));
-//                order.setDate(resultSet.getString("o_date"));
-//                orders.add(order);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//            return orders;
-//    }
-//
-//    public void cancelOrder(int id){
-//        try {
-//            query = "select from orders where o_id=?";
-//            preparedStatement = this.con.prepareStatement(query);
-//            preparedStatement.setInt(1,id);
-//            preparedStatement.execute();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

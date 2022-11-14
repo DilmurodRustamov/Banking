@@ -65,7 +65,7 @@
         <div class=" form-group row">
             <label class="col-sm-2 col-form-label">Balance</label>
             <div class="col-sm-7">
-                <input type="text" class="form-control" name="balance"
+                <input type="number" class="form-control" name="balance"
                        placeholder="Enter balance" required>
             </div>
         </div>

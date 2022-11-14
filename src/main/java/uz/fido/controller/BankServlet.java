@@ -24,7 +24,13 @@ public class BankServlet extends HttpServlet {
             BankDao bankDao = new BankDao(DbConnection.getConnection());
             bankDao.deleteBank(bankId);
         }
-        resp.sendRedirect("bank.jsp");
+
+        User auth = (User) request.getSession().getAttribute("auth");
+        if (auth != null) {
+            resp.sendRedirect("bank.jsp");
+        } else {
+            resp.sendRedirect("login.jsp");
+        }
     }
 
     @Override

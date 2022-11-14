@@ -23,7 +23,7 @@
 
 <div class="container">
     <div class="card-header my-3">All Client</div>
-    <a href="client" style="float: right; margin: 10px 20px">
+    <a href="client.jsp" style="float: right; margin: 10px 20px">
         <button class="btn btn-primary" style="padding: 2px 6px;">Add Client</button>
     </a>
     <table class="table table-light table-striped">
@@ -87,7 +87,7 @@
             <div class="clearfix">
                 <input type="hidden" id="clientId" name="clientId">
                 <button type="button" style="margin: 10px 20px; width: 100px" class="btn btn-success"
-                        onclick="saveCountry()" id="no">Cancel
+                        onclick="document.getElementById('deleteModal').style.display='none'"  id="no">Cancel
                 </button>
                 <button type="button" style="margin: 10px 20px; width: 100px" class="btn btn-danger"
                         onclick="saveCountry()" id="yes">Delete
@@ -229,7 +229,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">From Whom</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" name="toTrx"
+                            <input type="number" class="form-control" name="toTrx"
                                    placeholder="To">
                         </div>
                     </div>
@@ -237,7 +237,7 @@
                     <div class=" form-group row">
                         <label class="col-sm-2 col-form-label">Amount</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" name="amount"
+                            <input type="number" class="form-control" name="amount"
                                    placeholder="Enter amount">
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         <label class="col-sm-2 col-form-label">Your Balance</label>
                         <div class="col-sm-7">
                             <input readonly="readonly" type="text" id="withdraw" class="form-control"
-                                   name="withdrawBalance"
+                                   name="clientBalance"
                                    placeholder="Your Balance">
                         </div>
                     </div>
@@ -283,6 +283,7 @@
 
         let banks = document.getElementsByTagName('option');
         for (let i = 0; i < banks.length; i++) {
+            console.log("Banks: "+banks[i].innerText.trim());
             if (bank.trim() == banks[i].innerText.trim()) {
                 banks[i].setAttribute('selected', 'selected');
             }

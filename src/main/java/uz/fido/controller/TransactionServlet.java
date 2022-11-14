@@ -15,8 +15,13 @@ import java.io.IOException;
 public class TransactionServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("client.jsp");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User auth = (User) request.getSession().getAttribute("auth");
+        if (auth != null) {
+            response.sendRedirect("transactions.jsp");
+        } else {
+            response.sendRedirect("login.jsp");
+        }
     }
 
     @Override
@@ -31,7 +36,7 @@ public class TransactionServlet extends HttpServlet {
 
         ClientDao clientDao = new ClientDao(DbConnection.getConnection());
         User user = new User();
-        clientDao.insertClient(id,firstName,lastName,email,bank,balance,password);
+        clientDao.insertClient(id, firstName, lastName, email, bank, balance, password);
 
         resp.sendRedirect("client_table.jsp");
     }

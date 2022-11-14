@@ -93,15 +93,15 @@
 </div>
 <div id="deleteModal" class="modal"
      style="width: 500px; height: 600px; margin-top: 200px;margin-left: 430px; text-align: center">
-    <span onclick="document.getElementById('deleteModal').style.display='none'" class="close" title="Close Modal">&times;</span>
     <form class="modal-content" action="/bank" method="get">
+    <span onclick="document.getElementById('deleteModal').style.display='none'" class="close" title="Close Modal">&times;</span>
         <div class="container">
             <h1>Delete Client</h1>
             <p>Are you sure you want to delete this client?</p>
             <div class="clearfix">
                 <input type="hidden" id="bankId" name="bankId">
                 <button type="button" style="margin: 10px 20px; width: 100px" class="btn btn-success"
-                        onclick="saveCountry()" id="no">Cancel
+                        onclick="document.getElementById('deleteModal').style.display='none'"  id="no">Cancel
                 </button>
                 <button type="button" style="margin: 10px 20px; width: 100px" class="btn btn-danger"
                         onclick="saveCountry()" id="yes">Delete

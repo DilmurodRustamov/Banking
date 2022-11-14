@@ -18,9 +18,10 @@ public class WithdrawController extends HttpServlet {
         String toTrx = req.getParameter("toTrx");
         String amountWithdraw = req.getParameter("amount");
         String fromTrx = req.getParameter("fromTrx");
+        String clientBalance = req.getParameter("clientBalance");
 
         WithdrawDao withdrawDao = new WithdrawDao();
-        withdrawDao.withdraw(toTrx, amountWithdraw, fromTrx);
+        withdrawDao.withdraw(toTrx, amountWithdraw, fromTrx,clientBalance);
         resp.sendRedirect("client_table.jsp");
 
     }

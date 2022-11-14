@@ -6,10 +6,7 @@ import lombok.NoArgsConstructor;
 import uz.fido.model.Bank;
 import uz.fido.model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +18,7 @@ public class ClientDao {
     private String query;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
+    private Statement statement;
 
     public ClientDao(Connection connection) {
         this.con = connection;
@@ -28,12 +26,20 @@ public class ClientDao {
 
     public boolean insertClient(String id, String firstName, String lastName, String email, String bank, String balance, String password) {
         boolean result = false;
-
+        boolean exist = false;
         try {
+            query = "select * from users WHERE email = '"+email+"'";
+            preparedStatement = this.con.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String existEmail = resultSet.getString("email");
+                if (existEmail!=null)
+                    exist = true;
+            }
             if (id != null) {
                 query = "UPDATE users SET first_name=?,last_name=?, email=?,bank=?,balance=? WHERE id =" + Integer.parseInt(id);
 
-            } else {
+            } else if (!exist){
                 query = "insert into users(first_name,last_name, email,bank,balance, password) values(?,?,?,?,?,?);";
             }
             preparedStatement = this.con.prepareStatement(query);
